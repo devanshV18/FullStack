@@ -5,8 +5,38 @@ const port = 3000
 
 // NOTE - In the Express.js route definition, colons (:) are used to define route parameters. When you define a route with a colon followed by a parameter name (e.g., :num1, :num2), Express.js treats that part of the URL as a variable and extracts its value from the actual request URL.
 
+app.get('/:title', (req, res) => {
+    const title = req.params.title;
+    // Decode the search term
+    const decodedtitle = decodeURIComponent(title);
 
-app.get('/operator/num1/num2', (req, res) => {
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+    
+        <body>
+            
+            <h1>${decodedtitle}</h1>
+             
+        </body>
+        </html>
+    `);
+});
+
+app.get('/', (req, res) => {
+    const variable = req.query.name;
+
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+        
+        <body>
+            <h1>${variable}</h1>
+        </body>
+        </html>
+    `);
+});
+app.get('/:operator/:num1/:num2', (req, res) => {
     const operator = req.params.operator;
     const num1 = parseFloat(req.params.num1);
     const num2 = parseFloat(req.params.num2);
