@@ -46,7 +46,9 @@ const { connection } = require('./db/db_config');
 app.get('/',(req,res) => {
     let userInp = req.query.language;
 
-    connection.query(`SELECT * FROM movie_data WHERE language = '${userInp}'`,(err,results) => {
+    connection.query(`SELECT * FROM movie_data WHERE language = ?`,
+     [userInp], 
+     (err,results) => {
         if(err){
             console.log(`Error in query`);
             res.send("Error in DB Query");
