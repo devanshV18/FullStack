@@ -6,36 +6,37 @@ const { connection } = require('./db/db_config');
 
 // NOTE - In the Express.js route definition, colons (:) are used to define route parameters. When you define a route with a colon followed by a parameter name (e.g., :num1, :num2), Express.js treats that part of the URL as a variable and extracts its value from the actual request URL.
 
-app.get('/:title', (req, res) => {
-    const title = req.params.title;
-    // Decode the search term
-    const decodedtitle = decodeURIComponent(title);
+// app.get('/:title', (req, res) => {
+//     const title = req.params.title;
+//     // Decode the search term
+//     const decodedtitle = decodeURIComponent(title);
 
-    res.send(`
-        <!DOCTYPE html>
-        <html>
+//     res.send(`
+//         <!DOCTYPE html>
+//         <html>
     
-        <body>
+//         <body>
             
-            <h2>${decodedtitle}</h2>
+//             <h2>${decodedtitle}</h2>
              
-        </body>
-        </html>
-    `);
-});
+//         </body>
+//         </html>
+//     `);
+// });
 
 app.get('/', (req, res) => {
-    const variable = req.query.name;
+    let userInput = req.query.term;
 
-    res.send(`
-        <!DOCTYPE html>
-        <html>
-        
-        <body>
-            <h1>${variable}</h1>
-        </body>
-        </html>
-    `);
+    connection.query(`SELECT * FROM movie_data WHERE title LIKE '${userInput}%'`,(err,results) => {
+        if(err){
+            console.log(`Error in query`);
+            res.send("Error in DB Query");
+        }
+        else{
+            console.log(results);
+            res.send(results);
+        }
+    })
 });
 
 
