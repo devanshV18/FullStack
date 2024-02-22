@@ -24,10 +24,29 @@ const { connection } = require('./db/db_config');
 //     `);
 // });
 
-app.get('/search',(req,res) => {
-    let type = req.query.type;
+// app.get('/search',(req,res) => {
+//     let type = req.query.type;
 
-    connection.query(`SELECT * FROM movie_data WHERE language = '${type}'`,(err,results) => {
+//     connection.query(`SELECT * FROM movie_data WHERE language = '${type}'`,(err,results) => {
+//         if(err){
+//             console.log(`Error in query`);
+//             res.send("Error in DB Query");
+//         }
+//         else{
+//             console.log(results);
+//             res.send(results);
+//         }
+//     })
+    
+// })
+
+//root route solution
+
+
+app.get('/',(req,res) => {
+    let userInp = req.query.language;
+
+    connection.query(`SELECT * FROM movie_data WHERE language = '${userInp}'`,(err,results) => {
         if(err){
             console.log(`Error in query`);
             res.send("Error in DB Query");
