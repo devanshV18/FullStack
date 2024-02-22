@@ -24,10 +24,26 @@ const { connection } = require('./db/db_config');
 //     `);
 // });
 
-app.get('/', (req, res) => {
-    let userInput = req.query.term;
+app.get('/search',(req,res) => {
+    let type = req.query.type;
 
-    connection.query(`SELECT * FROM movie_data WHERE title LIKE '${userInput}%'`,(err,results) => {
+    connection.query(`SELECT * FROM movie_data WHERE language = '${type}'`,(err,results) => {
+        if(err){
+            console.log(`Error in query`);
+            res.send("Error in DB Query");
+        }
+        else{
+            console.log(results);
+            res.send(results);
+        }
+    })
+    
+})
+
+app.get('/', (req, res) => {
+    let id = req.query.id;
+
+    connection.query(`DELETE FROM movie_data WHERE id = '${id}'`,(err,results) => {
         if(err){
             console.log(`Error in query`);
             res.send("Error in DB Query");
