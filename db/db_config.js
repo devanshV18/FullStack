@@ -7,4 +7,14 @@ const connection = mysql.createConnection({
     database:"movies",
 })
 
+//err is the callback for reject as per callabck syntax
+connection.connect((err) => {
+    if(err){
+        console.log(`Database Connection Error : ${err}`);
+    }
+    else{
+        console.log(`Database Connection Successful`);
+    }
+});
 
+module.exports = { connection };

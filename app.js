@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()  //app = instance of express // app serves as express for us
 const port = 3000
 
+const { connection } = require('./db/db_config');
 
 // NOTE - In the Express.js route definition, colons (:) are used to define route parameters. When you define a route with a colon followed by a parameter name (e.g., :num1, :num2), Express.js treats that part of the URL as a variable and extracts its value from the actual request URL.
 
