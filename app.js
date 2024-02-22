@@ -16,7 +16,7 @@ app.get('/:title', (req, res) => {
     
         <body>
             
-            <h1>${decodedtitle}</h1>
+            <h2>${decodedtitle}</h2>
              
         </body>
         </html>
